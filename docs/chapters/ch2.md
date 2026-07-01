@@ -231,8 +231,33 @@ Reducing $[A\mid \mathbf{b}]$ to RREF puts pivots in columns $2, 4, 5$; columns 
 
 ## 2.12 · Basis of $U_1 \cap U_2$
 
-!!! steps "In progress"
-    Set up the $4\times 6$ matrix $[\,\mathbf{u}_1\ \mathbf{u}_2\ \mathbf{u}_3 \mid -\mathbf{w}_1\ -\mathbf{w}_2\ -\mathbf{w}_3\,]$, reduce, and read the null space. Next step: $R_4 \to R_4 + \tfrac32 R_3$ gives $[\,0\,0\,0 \mid 0\ -1\ \tfrac72\,]$.
+!!! theory "Topics & Definitions"
+    - **Intersection $U_1 \cap U_2$** — all vectors that lie in both subspaces at once.
+    - **Key idea** — a vector is in the intersection when it is a combination of the $\mathbf{u}$'s *and* of the $\mathbf{w}$'s: $a_1\mathbf{u}_1 + a_2\mathbf{u}_2 + a_3\mathbf{u}_3 = b_1\mathbf{w}_1 + b_2\mathbf{w}_2 + b_3\mathbf{w}_3$.
+    - **Set-up** — move everything to one side: $a_1\mathbf{u}_1+a_2\mathbf{u}_2+a_3\mathbf{u}_3 - b_1\mathbf{w}_1 - b_2\mathbf{w}_2 - b_3\mathbf{w}_3 = \mathbf{0}$, a homogeneous system with columns $[\mathbf{u}_1\ \mathbf{u}_2\ \mathbf{u}_3 \mid -\mathbf{w}_1\ -\mathbf{w}_2\ -\mathbf{w}_3]$.
+    - **Free variable** — a column with no pivot; here $b_3$, which parameterises the (one-dimensional) intersection.
+
+Stack the six vectors as columns of a $4\times 6$ matrix and row-reduce. Two $\mathbf{u}$ columns and two $\mathbf{w}$ columns take pivots, leaving $b_3$ free. Back-substituting recovers the $b$ coefficients, and feeding them into $b_1\mathbf{w}_1+b_2\mathbf{w}_2+b_3\mathbf{w}_3$ rebuilds the shared vector.
+
+!!! steps "Reduce, then rebuild the intersection vector"
+    Row echelon form of $[\mathbf{u}_1\ \mathbf{u}_2\ \mathbf{u}_3 \mid -\mathbf{w}_1\ -\mathbf{w}_2\ -\mathbf{w}_3]$:
+
+    $$\left[\begin{array}{ccc|ccc}
+    1&2&-1&-1&2&-3\\
+    0&1&-\tfrac23&\tfrac13&\tfrac43&-3\\
+    0&0&0&1&1&-\tfrac72\\
+    0&0&0&0&1&-\tfrac72
+    \end{array}\right]$$
+
+    Column $b_3$ has no pivot, so set $b_3 = t$. Back-substitution gives
+    $$b_2 = \tfrac72 t, \qquad b_1 = -b_2 + \tfrac72 t = 0.$$
+    Choosing $t = 2$ to clear fractions: $b_1 = 0,\ b_2 = 7,\ b_3 = 2$.
+
+    Rebuild the intersection vector from the $\mathbf{w}$ side:
+    $$7\mathbf{w}_2 + 2\mathbf{w}_3 = 7\begin{pmatrix}2\\-2\\0\\0\end{pmatrix} + 2\begin{pmatrix}-3\\6\\-2\\-1\end{pmatrix} = \begin{pmatrix}14\\-14\\0\\0\end{pmatrix} + \begin{pmatrix}-6\\12\\-4\\-2\end{pmatrix} = \begin{pmatrix}8\\-2\\-4\\-2\end{pmatrix}.$$
+
+    Dividing by $2$ gives the simplest representative $(4,-1,-2,-1)$.
 
 !!! answer "Answer"
-    *To be completed.*
+    $U_1 \cap U_2$ is one-dimensional, with basis
+    $$\left\{\,(4,\ -1,\ -2,\ -1)\,\right\}.$$

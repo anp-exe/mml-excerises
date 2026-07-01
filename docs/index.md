@@ -10,7 +10,7 @@ Each question is laid out the same way: a **Topics & Definitions** box, a plain-
 
 | Chapter | Exercises answered |
 |:------:|:------------------:|
-| 2 · Linear Algebra | ✅ 2.1–2.11 &nbsp;·&nbsp; 2.12 pending |
+| 2 · Linear Algebra | ✅ 2.1–2.12 complete |
 | 3 · Analytic Geometry | ⬜ |
 | 4 · Matrix Decompositions | ⬜ |
 | 5 · Vector Calculus | ⬜ |
