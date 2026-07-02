@@ -354,3 +354,108 @@ Same two matrices as 2.13, but now the $U$'s are spanned by the columns. Each ha
 
 !!! note "What \"basis = the pivot columns\" really means"
     Row operations **change** the columns, so you can never copy the basis straight out of the RREF. What row reduction *does* preserve is the dependency pattern, telling you **which** columns are independent. So: reduce to spot the pivot positions (here columns $1$ and $2$), then go back and take those columns from the **original** matrix. For $A_1$ that is $(1,1,2,1)$ and $(0,-2,1,0)$, the untouched first two columns.
+
+---
+
+## 2.15 · Subspaces $F, G \subseteq \mathbb{R}^3$ and their intersection
+
+!!! theory "Topics & Definitions"
+    - **Subspace** — a subset that contains $\mathbf{0}$ and is closed under addition and scalar multiplication.
+    - **Intersection $F \cap G$** — all vectors lying in both subspaces at once.
+    - **Basis of a plane** — solve the defining equation for one variable, then split the free variables into separate vectors.
+    - **Two routes to $F \cap G$** — substitute $G$'s general form into $F$'s equation (part b), or set a combination of $F$'s basis equal to a combination of $G$'s basis and solve (part c). Both give the same line.
+
+$F = \{(x,y,z)\in\mathbb{R}^3 \mid x+y-z = 0\}$ is a plane through the origin. $G = \{(a-b,\ a+b,\ a-3b)\mid a,b\in\mathbb{R}\}$ is the span of two vectors. Both pass the three subspace tests: they contain the zero vector, and they are closed under addition and scaling (each condition is inherited from the linear form of the definition).
+
+**Part a (subspaces).** For $F$: $0+0-0 = 0$ so $\mathbf{0}\in F$; adding two solutions of $x+y-z=0$ gives another solution; scaling by $c$ gives $c(x+y-z) = 0$. For $G$: choosing $a=b=0$ gives $\mathbf{0}\in G$; sums and scalar multiples keep the same $(a-b,\ a+b,\ a-3b)$ shape. So both are subspaces of $\mathbb{R}^3$.
+
+!!! steps "Part b, intersection without a basis"
+    A general vector in $G$ is $(a-b,\ a+b,\ a-3b)$. For it to lie in $F$ it must satisfy $x+y-z=0$:
+    $$(a-b)+(a+b)-(a-3b) = a + 3b = 0 \;\Rightarrow\; a = -3b.$$
+    Substituting $a=-3b$ back into $G$'s coordinates:
+    $$x = -3b-b = -4b,\quad y = -3b+b = -2b,\quad z = -3b-3(-3b) = -6b.$$
+    So $F\cap G = \{(-4b,-2b,-6b)\mid b\in\mathbb{R}\} = \{k(2,1,3)\mid k\in\mathbb{R}\}$.
+
+!!! steps "Part c, intersection using bases"
+    Basis for $F$: rewrite $x+y-z=0$ as $z=x+y$, so $(x,y,x+y) = x(1,0,1)+y(0,1,1)$, giving $B_F = \{(1,0,1),(0,1,1)\}$.
+    Basis for $G$: separate the parameters, $a(1,1,1)+b(-1,1,-3)$, giving $B_G = \{(1,1,1),(-1,1,-3)\}$.
+    Set a combination of $B_F$ equal to a combination of $B_G$:
+    $$c_1(1,0,1)+c_2(0,1,1) = d_1(1,1,1)+d_2(-1,1,-3).$$
+    Matching coordinates gives $c_1 = d_1-d_2$, $c_2 = d_1+d_2$, $c_1+c_2 = d_1-3d_2$. Substituting the first two into the third: $2d_1 = d_1 - 3d_2 \Rightarrow d_1 = -3d_2$. Let $d_2 = t$, so $d_1 = -3t$:
+    $$-3t(1,1,1)+t(-1,1,-3) = (-4t,-2t,-6t) = k(2,1,3).$$
+    This matches part b exactly.
+
+!!! answer "Answer"
+    Both $F$ and $G$ are subspaces of $\mathbb{R}^3$.
+
+    $$F \cap G = \{\,k(2,1,3)\mid k\in\mathbb{R}\,\}$$
+
+    (a one-dimensional line, obtained identically with or without bases).
+
+---
+
+## 2.16 · Are the following mappings linear?
+
+!!! theory "Topics & Definitions"
+    - **Linear mapping** — a map $\Phi$ that passes two tests for all inputs $f,g$ and scalars $c$.
+    - **Additivity (plus test)** — $\Phi(f+g) = \Phi(f) + \Phi(g)$.
+    - **Homogeneity (scalar test)** — $\Phi(c\cdot f) = c\cdot\Phi(f)$.
+    - **To disprove linearity** — a single counterexample that breaks either test is enough.
+
+A map is linear exactly when it respects addition and scaling. Integration and differentiation both do (they split across plus signs and let constants slide out), so parts a and b are linear. Cosine does not (it bends its input), so part c fails. Any fixed-matrix map is automatically linear, so parts d and e pass, including the rotation matrix in e where the sines and cosines are just constants.
+
+!!! steps "Parts a & b, integration and differentiation"
+    **a) Integration** $\Phi(f) = \int_a^b f(x)\,dx$.
+    Additivity: $\int_a^b (f+g)\,dx = \int_a^b f\,dx + \int_a^b g\,dx = \Phi(f)+\Phi(g)$.
+    Homogeneity: $\int_a^b c\,f\,dx = c\int_a^b f\,dx = c\,\Phi(f)$. Linear.
+
+    **b) Differentiation** $\Phi(f) = f'$.
+    Additivity: $(f+g)' = f' + g' = \Phi(f)+\Phi(g)$.
+    Homogeneity: $(c\,f)' = c\,f' = c\,\Phi(f)$. Linear.
+
+!!! steps "Part c, cosine (counterexample)"
+    $\Phi(x) = \cos(x)$. Test additivity: $\Phi(x+y) = \cos(x+y)$, but $\Phi(x)+\Phi(y) = \cos(x)+\cos(y)$, and $\cos(x+y)\neq\cos(x)+\cos(y)$ in general.
+    Concrete counterexample with $x=y=0$: $\Phi(0+0) = \cos 0 = 1$, while $\Phi(0)+\Phi(0) = 1+1 = 2$. Since $1\neq 2$, it is **not linear**.
+
+!!! steps "Parts d & e, matrix maps"
+    **d)** $\Phi(\mathbf{x}) = A\mathbf{x}$ with $A = \begin{bmatrix}1&2&3\\1&4&3\end{bmatrix}$.
+    Additivity: $A(\mathbf{x}+\mathbf{y}) = A\mathbf{x}+A\mathbf{y}$. Homogeneity: $A(c\mathbf{x}) = c(A\mathbf{x})$. Linear.
+
+    **e)** $\Phi(\mathbf{x}) = A\mathbf{x}$ with $A = \begin{bmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{bmatrix}$ for fixed $\theta$.
+    The entries are constants, so this is still just matrix multiplication, and the same two properties hold. Linear (this is a rotation matrix).
+
+!!! answer "Answer"
+    - **a)** linear (integration)
+    - **b)** linear (differentiation)
+    - **c)** **not linear** ($\cos(x+y)\neq\cos x+\cos y$; e.g. $x=y=0$ gives $1\neq 2$)
+    - **d)** linear (matrix map)
+    - **e)** linear (rotation matrix)
+
+---
+
+## 2.17 · Transformation matrix, rank, kernel and image of $\Phi:\mathbb{R}^3\to\mathbb{R}^4$
+
+!!! theory "Topics & Definitions"
+    - **Transformation matrix $A_\Phi$** — read the coefficients of $x_1,x_2,x_3$ row by row; column $j$ holds the coefficients of $x_j$.
+    - **Rank** — number of pivots after row reduction.
+    - **Kernel $\ker(\Phi)$** — all inputs sent to $\mathbf{0}$; $\dim(\ker) = (\text{columns}) - \operatorname{rank}$.
+    - **Image $\operatorname{Im}(\Phi)$** — all reachable outputs; $\dim(\operatorname{Im}) = \operatorname{rank}$, spanned by the original pivot columns.
+
+Reading the four output rows gives the coefficient matrix $A_\Phi$. Row-reducing it produces a pivot in all three columns, so the rank is $3$. By rank–nullity the kernel is trivial ($3-3 = 0$), meaning only the zero vector maps to zero, and the image is three-dimensional, spanned by the three original columns.
+
+!!! steps "Build $A_\Phi$ and row-reduce"
+    Pull the coefficients out of $\Phi(x_1,x_2,x_3) = (3x_1+2x_2+x_3,\ x_1+x_2+x_3,\ x_1-3x_2,\ 2x_1+3x_2+x_3)$:
+    $$A_\Phi = \begin{bmatrix}3&2&1\\1&1&1\\1&-3&0\\2&3&1\end{bmatrix}.$$
+    Swap to get a leading $1$, then clear below:
+    $$\begin{bmatrix}1&1&1\\3&2&1\\1&-3&0\\2&3&1\end{bmatrix}
+    \longrightarrow
+    \begin{bmatrix}1&1&1\\0&1&2\\0&0&1\\0&0&0\end{bmatrix}.$$
+    Three pivots, so $\operatorname{rk}(A_\Phi) = 3$.
+
+!!! answer "Answer"
+    $$A_\Phi = \begin{bmatrix}3&2&1\\1&1&1\\1&-3&0\\2&3&1\end{bmatrix},\qquad \operatorname{rk}(A_\Phi) = 3.$$
+
+    $\ker(\Phi) = \{\mathbf{0}\}$, so $\dim(\ker(\Phi)) = 0$.
+
+    $\dim(\operatorname{Im}(\Phi)) = 3$, with
+    $$\operatorname{Im}(\Phi) = \operatorname{span}\left\{\begin{pmatrix}3\\1\\1\\2\end{pmatrix},\begin{pmatrix}2\\1\\-3\\3\end{pmatrix},\begin{pmatrix}1\\1\\0\\1\end{pmatrix}\right\}.$$
