@@ -1,6 +1,6 @@
 # MML Exercise Answers
 
-Worked solutions to the **end-of-chapter exercises** in *Mathematics for Machine Learning* (Deisenroth, Faisal & Ong).
+Worked solutions to the **end-of-chapter exercises** in *Mathematics for Machine Learning* (Deisenroth, Faisal & Ong). The full book is freely available [here](https://mml-book.github.io/book/mml-book.pdf).
 
 Each question is laid out the same way: a **Topics & Definitions** box, a plain-English explanation, the **worked steps** (with real matrices), then the **answer**.
 

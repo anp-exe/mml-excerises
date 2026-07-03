@@ -21,6 +21,16 @@ For part b, solve $3 \star x \star x = 4(x+1)^2 - 1 = 15$.
 
     **2.1b:** $x = 1$ or $x = -3$.
 
+!!! note "The four group axioms, and what makes a group Abelian"
+    A **group** is a set $G$ with one operation $\star$ that obeys four rules. Checking a group means checking these one by one; here every check rides on the factoring $a\star b = (a+1)(b+1) - 1$, which turns $\star$ into ordinary multiplication shifted by $1$.
+
+    1. **Closure** — combining any two members lands you back inside the set. For $\star$: $(a+1)(b+1)-1$ equals $-1$ only if $(a+1)(b+1)=0$, which cannot happen when $a,b\neq -1$. So the result is never the forbidden $-1$, and you stay in $\mathbb{R}\setminus\{-1\}$.
+    2. **Associativity** — regrouping does not change the result: $(a\star b)\star c = a\star(b\star c)$. This is inherited from ordinary multiplication of the shifted factors, which is associative.
+    3. **Identity** — one special element $e$ leaves everything unchanged: $a\star e = a$ for all $a$. Here $e = 0$, since $(a+1)(0+1)-1 = a$.
+    4. **Inverses** — every $a$ has a partner $a^{-1}$ that undoes it, returning the identity: $a\star a^{-1} = e$. Here $a^{-1} = \dfrac{-a}{a+1}$, and it is never $-1$, so it lives in the set too.
+
+    Those four make $G$ a group. It is also **Abelian** (commutative) if one bonus rule holds: $a\star b = b\star a$ for *all* $a,b$. Since $\star$ is built from ordinary multiplication, and multiplication does not care about order, $\star$ commutes, so this is an **Abelian group**. (A group can pass the four axioms yet fail this test, like the matrix group in 2.3, that is a non-Abelian group.)
+
 ---
 
 ## 2.2 · Integers mod $n$ under $\oplus$
