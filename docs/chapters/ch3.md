@@ -40,6 +40,7 @@ Here $A = \begin{bmatrix}2&0\\1&2\end{bmatrix}$, and $A^\top = \begin{bmatrix}2&
 
 !!! steps "Counterexample with $\mathbf{x} = (2,0)^\top$, $\mathbf{y} = (0,2)^\top$"
     $$\langle\mathbf{x},\mathbf{y}\rangle = \mathbf{x}^\top A\mathbf{y} = \begin{bmatrix}2&0\end{bmatrix}\begin{bmatrix}2&0\\1&2\end{bmatrix}\begin{bmatrix}0\\2\end{bmatrix} = \begin{bmatrix}2&0\end{bmatrix}\begin{bmatrix}0\\4\end{bmatrix} = 0.$$
+
     $$\langle\mathbf{y},\mathbf{x}\rangle = \mathbf{y}^\top A\mathbf{x} = \begin{bmatrix}0&2\end{bmatrix}\begin{bmatrix}2&0\\1&2\end{bmatrix}\begin{bmatrix}2\\0\end{bmatrix} = \begin{bmatrix}0&2\end{bmatrix}\begin{bmatrix}4\\2\end{bmatrix} = 4.$$
     Since $0 \neq 4$, the form is not symmetric.
 
@@ -60,11 +61,13 @@ Distance is just the length of the arrow joining the points. So compute $\mathbf
 
 !!! steps "Part a, dot product $\langle\mathbf{x},\mathbf{y}\rangle = \mathbf{x}^\top\mathbf{y}$"
     $$\mathbf{x}-\mathbf{y} = (2,3,3)^\top, \qquad \langle\mathbf{x}-\mathbf{y},\mathbf{x}-\mathbf{y}\rangle = 2^2 + 3^2 + 3^2 = 22.$$
+
     $$d = \sqrt{22} \approx 4.69.$$
 
 !!! steps "Part b, weighted product $\langle\mathbf{x},\mathbf{y}\rangle = \mathbf{x}^\top A\mathbf{y}$"
     With $A = \begin{bmatrix}2&1&0\\1&3&-1\\0&-1&2\end{bmatrix}$ and $\mathbf{d} = \mathbf{x}-\mathbf{y} = (2,3,3)^\top$, first apply $A$:
     $$A\mathbf{d} = \begin{bmatrix}2&1&0\\1&3&-1\\0&-1&2\end{bmatrix}\begin{bmatrix}2\\3\\3\end{bmatrix} = \begin{bmatrix}7\\8\\3\end{bmatrix},\qquad \mathbf{d}^\top A\mathbf{d} = 2(7)+3(8)+3(3) = 47.$$
+
     $$d = \sqrt{47} \approx 6.86.$$
 
 !!! answer "Answer"

@@ -526,6 +526,7 @@ The transformation matrix is $A_\Phi = \begin{bmatrix}1&1&0\\1&-1&0\\1&1&1\end{b
 !!! steps "Part a, kernel and image"
     $\det A_\Phi = -2 \neq 0$, so $\operatorname{rk}(A_\Phi) = 3$.
     $$\ker(\Phi) = \{\mathbf{0}\}, \qquad \dim(\ker(\Phi)) = 0.$$
+
     $$\operatorname{Im}(\Phi) = \mathbb{R}^3, \qquad \dim(\operatorname{Im}(\Phi)) = 3.$$
 
 !!! steps "Part b, basis change to $B$"
