@@ -34,6 +34,8 @@ For building real intuition on vectors, transformations, and matrices, 3Blue1Bro
 [**Essence of Linear Algebra**](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
 video series is fantastic and highly recommended.
 
+For linear mappings specifically, [**this video**](https://youtu.be/is1cg5yhdds) is a clear, helpful walkthrough.
+
 ---
 
 ## How this site is built
