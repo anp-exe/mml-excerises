@@ -233,3 +233,47 @@ It is cleanest to orthogonalise first (get $u_1, u_2$), then normalise at the ve
     Both forms are correct; the factored form is usually cleaner to read.
 
 Reference: [Gram-Schmidt Process (Professor Dave Explains)](https://www.youtube.com/watch?v=zHbfZWZJTGc)
+
+---
+
+## 3.10 · Rotating vectors in the plane
+
+Rotate the vectors
+$$x_1 := \begin{pmatrix}2\\3\end{pmatrix}, \qquad x_2 := \begin{pmatrix}0\\-1\end{pmatrix}$$
+by $30^\circ$.
+
+!!! theory "Topics & Definitions"
+    - **Rotation matrix** — in $\mathbb{R}^2$, an anticlockwise rotation by angle $\theta$ about the origin is the linear map $R(\theta) = \begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta & \cos\theta\end{pmatrix}$, and rotating is just $x \mapsto R(\theta)\,x$.
+    - **Where it comes from** — the columns are the images of the standard basis vectors. Rotating $e_1 = (1,0)^\top$ lands it at $(\cos\theta, \sin\theta)^\top$ (column 1); rotating $e_2 = (0,1)^\top$ lands it at $(-\sin\theta, \cos\theta)^\top$ (column 2).
+    - **Sign convention** — positive $\theta$ is anticlockwise. For clockwise, use $R(-\theta)$, which flips the signs of the two sine terms.
+    - **Rotations are orthogonal maps** — $R(\theta)^\top R(\theta) = I$, so they preserve lengths and angles: $\lVert R(\theta)x\rVert = \lVert x\rVert$. That gives a free check on any answer.
+
+A rotation just spins each vector about the origin without stretching it. Write down $R(30^\circ)$ once, multiply each vector through, and then confirm the lengths are unchanged as a sanity check.
+
+!!! steps "Step 1, write down $R(30^\circ)$"
+    With $\cos 30^\circ = \tfrac{\sqrt3}{2}$ and $\sin 30^\circ = \tfrac12$:
+    $$R(30^\circ) = \begin{pmatrix}\cos 30^\circ & -\sin 30^\circ\\\sin 30^\circ & \cos 30^\circ\end{pmatrix} = \begin{pmatrix}\tfrac{\sqrt3}{2} & -\tfrac12\\[4pt] \tfrac12 & \tfrac{\sqrt3}{2}\end{pmatrix}.$$
+
+!!! note "Keep the surds"
+    Work with exact values $\tfrac{\sqrt3}{2}$ and $\tfrac12$ rather than decimals. Rounding early accumulates error and hides the structure of the answer.
+
+!!! steps "Step 2, rotate $x_1$"
+    $$R(30^\circ)\,x_1 = \begin{pmatrix}\tfrac{\sqrt3}{2} & -\tfrac12\\[4pt] \tfrac12 & \tfrac{\sqrt3}{2}\end{pmatrix}\begin{pmatrix}2\\3\end{pmatrix} = \begin{pmatrix}\tfrac{\sqrt3}{2}(2) - \tfrac12(3)\\[4pt] \tfrac12(2) + \tfrac{\sqrt3}{2}(3)\end{pmatrix} = \begin{pmatrix}\sqrt3 - \tfrac32\\[4pt] 1 + \tfrac{3\sqrt3}{2}\end{pmatrix} \approx \begin{pmatrix}0.232\\3.598\end{pmatrix}.$$
+
+!!! steps "Step 3, rotate $x_2$"
+    $$R(30^\circ)\,x_2 = \begin{pmatrix}\tfrac{\sqrt3}{2} & -\tfrac12\\[4pt] \tfrac12 & \tfrac{\sqrt3}{2}\end{pmatrix}\begin{pmatrix}0\\-1\end{pmatrix} = \begin{pmatrix}\tfrac{\sqrt3}{2}(0) - \tfrac12(-1)\\[4pt] \tfrac12(0) + \tfrac{\sqrt3}{2}(-1)\end{pmatrix} = \begin{pmatrix}\tfrac12\\[4pt] -\tfrac{\sqrt3}{2}\end{pmatrix} \approx \begin{pmatrix}0.5\\-0.866\end{pmatrix}.$$
+
+    A nice cross-check: $x_2$ starts pointing straight down, at $270^\circ$. Rotating anticlockwise by $30^\circ$ lands it at $300^\circ$, and indeed $(\cos 300^\circ, \sin 300^\circ) = (\tfrac12, -\tfrac{\sqrt3}{2})$.
+
+!!! steps "Step 4, verify lengths are preserved"
+    Rotations are isometries, so the norms must be unchanged:
+    $$\lVert x_1\rVert = \sqrt{4 + 9} = \sqrt{13}, \qquad \lVert R x_1\rVert = \sqrt{13} \quad\checkmark$$
+
+    $$\lVert x_2\rVert = 1, \qquad \lVert R x_2\rVert = \sqrt{\tfrac14 + \tfrac34} = 1 \quad\checkmark$$
+
+    If a rotated vector has a different length from the original, there is an arithmetic error somewhere.
+
+!!! answer "Answer"
+    $$R(30^\circ)\,x_1 = \begin{pmatrix}\sqrt3 - \tfrac32\\[4pt] 1 + \tfrac{3\sqrt3}{2}\end{pmatrix} \approx \begin{pmatrix}0.232\\3.598\end{pmatrix},$$
+
+    $$R(30^\circ)\,x_2 = \begin{pmatrix}\tfrac12\\[4pt] -\tfrac{\sqrt3}{2}\end{pmatrix} \approx \begin{pmatrix}0.5\\-0.866\end{pmatrix}.$$
