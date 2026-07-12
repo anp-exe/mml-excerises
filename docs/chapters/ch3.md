@@ -199,12 +199,12 @@ Let $V$ be a vector space and $\pi$ an endomorphism of $V$.
 **(b)** Assuming $\pi$ is a projection, compute $\operatorname{Im}(\operatorname{id}_V - \pi)$ and $\ker(\operatorname{id}_V - \pi)$ in terms of $\operatorname{Im}(\pi)$ and $\ker(\pi)$.
 
 !!! theory "Topics & Definitions"
-    - **Projection $=$ idempotent** — an endomorphism $\pi$ is a projection exactly when $\pi^2 = \pi$. Once you have landed in the target subspace, projecting again does not move you.
-    - **The identity behaves like $1$** — composing with $\operatorname{id}_V$ changes nothing: $\operatorname{id}\circ\pi = \pi$ and $\pi\circ\operatorname{id} = \pi$. This is what lets $(\operatorname{id} - \pi)^2$ expand like ordinary algebra.
-    - **Two facts that drive part b** — a projection is the identity on its image ($\pi(v) = v$ for $v \in \operatorname{Im}(\pi)$) and zero on its kernel ($\pi(v) = 0$ for $v \in \ker(\pi)$), giving the split $V = \operatorname{Im}(\pi) \oplus \ker(\pi)$.
+    - **Projection $=$ idempotent** — an endomorphism $\pi$ is a projection exactly when $\pi^2 = \pi$. Once you have landed in the target subspace, projecting again does not move you. This single equation drives the whole exercise.
+    - **The identity behaves like $1$** — composing with $\operatorname{id}_V$ changes nothing: $\operatorname{id}\circ\pi = \pi$ and $\pi\circ\operatorname{id} = \pi$. This is what lets $(\operatorname{id} - \pi)^2$ expand exactly like ordinary algebra.
+    - **What $\operatorname{id} - \pi$ does** — feed it $v$ and you get $v - \pi(v)$: the vector minus its projection, the same **residual** used to compute distances in the earlier exercises.
     - **Proving a set equality** — to show $A = B$, prove both inclusions $A \subseteq B$ and $B \subseteq A$.
 
-Part a is pure algebra: expand $(\operatorname{id} - \pi)^2$ and watch the condition $\pi^2 = \pi$ appear. Part b then chases elements through $\operatorname{id} - \pi$, using $\pi^2 = \pi$ at each turn, to show the image and kernel simply swap.
+Part a is pure algebra: expand $(\operatorname{id} - \pi)^2$ and watch the condition $\pi^2 = \pi$ appear. Part b then chases elements through $\operatorname{id} - \pi$, using $\pi^2 = \pi$ where needed, to show the image and kernel simply swap.
 
 !!! steps "Part a, expand $(\operatorname{id} - \pi)^2$"
     Write $\operatorname{id}$ for $\operatorname{id}_V$. Expanding the composition:
@@ -212,33 +212,30 @@ Part a is pure algebra: expand $(\operatorname{id} - \pi)^2$ and watch the condi
     The two middle terms each collapse to $\pi$, since composing with the identity does nothing.
 
 !!! steps "Part a, chain of equivalences"
-    Now $\operatorname{id} - \pi$ is a projection precisely when it is idempotent:
+    $\operatorname{id} - \pi$ is a projection precisely when it is idempotent:
     $$\begin{aligned}(\operatorname{id} - \pi)^2 = \operatorname{id} - \pi &\iff \operatorname{id} - 2\pi + \pi^2 = \operatorname{id} - \pi\\ &\iff -2\pi + \pi^2 = -\pi\\ &\iff \pi^2 = \pi.\end{aligned}$$
-    Every step is a reversible equivalence (subtract $\operatorname{id}$, then add $2\pi$, to both sides), so the biconditional holds in both directions at once:
-    $$\operatorname{id} - \pi \text{ is a projection} \iff \pi \text{ is a projection}. \qquad \blacksquare$$
+    Every step is reversible (subtract $\operatorname{id}$, then add $2\pi$, to both sides), so the biconditional holds in both directions at once. $\blacksquare$
 
 !!! note "Why both directions come free"
     Because the chain uses $\iff$ rather than $\implies$, reading it top-to-bottom proves one direction and bottom-to-top proves the other. No separate argument is needed.
 
+!!! steps "Part b, $\ker(\operatorname{id} - \pi) = \operatorname{Im}(\pi)$"
+    Work directly from the definition of the kernel:
+    $$v \in \ker(\operatorname{id}-\pi) \iff (\operatorname{id}-\pi)(v) = 0 \iff v - \pi(v) = 0 \iff v = \pi(v).$$
+    The statement $v = \pi(v)$ says that $v$ is an output of $\pi$, which is exactly what it means for $v$ to lie in $\operatorname{Im}(\pi)$. Every step is an equivalence, so
+    $$\ker(\operatorname{id}-\pi) = \operatorname{Im}(\pi).$$
+    Note this direction does not even require idempotency.
+
 !!! steps "Part b, $\operatorname{Im}(\operatorname{id} - \pi) = \ker(\pi)$"
-    **($\subseteq$)** Let $w \in \operatorname{Im}(\operatorname{id} - \pi)$, so $w = v - \pi(v)$ for some $v \in V$. Applying $\pi$ and using $\pi^2 = \pi$:
+    **($\subseteq$)** Let $w \in \operatorname{Im}(\operatorname{id} - \pi)$, so $w = v - \pi(v)$ for some $v$. Apply $\pi$:
     $$\pi(w) = \pi(v) - \pi^2(v) = \pi(v) - \pi(v) = 0,$$
-    so $w \in \ker(\pi)$.
+    using $\pi^2 = \pi$. So $w \in \ker(\pi)$.
 
     **($\supseteq$)** Let $w \in \ker(\pi)$, so $\pi(w) = 0$. Then
-    $$(\operatorname{id} - \pi)(w) = w - \pi(w) = w - 0 = w,$$
-    so $w$ is its own image under $\operatorname{id} - \pi$, hence $w \in \operatorname{Im}(\operatorname{id} - \pi)$.
+    $$(\operatorname{id}-\pi)(w) = w - \pi(w) = w - 0 = w,$$
+    so $w$ is its own image under $\operatorname{id} - \pi$, hence $w \in \operatorname{Im}(\operatorname{id}-\pi)$.
 
-    Both inclusions hold, so $\operatorname{Im}(\operatorname{id} - \pi) = \ker(\pi)$.
-
-!!! steps "Part b, $\ker(\operatorname{id} - \pi) = \operatorname{Im}(\pi)$"
-    **($\subseteq$)** Let $v \in \ker(\operatorname{id} - \pi)$, so $v - \pi(v) = 0$, giving $v = \pi(v)$. Then $v$ is $\pi$ of something, so $v \in \operatorname{Im}(\pi)$.
-
-    **($\supseteq$)** Let $v \in \operatorname{Im}(\pi)$, so $v = \pi(u)$ for some $u \in V$. Then, using $\pi^2 = \pi$:
-    $$(\operatorname{id} - \pi)(v) = \pi(u) - \pi^2(u) = \pi(u) - \pi(u) = 0,$$
-    so $v \in \ker(\operatorname{id} - \pi)$.
-
-    Both inclusions hold, so $\ker(\operatorname{id} - \pi) = \operatorname{Im}(\pi)$. $\blacksquare$
+    Both inclusions hold, so $\operatorname{Im}(\operatorname{id}-\pi) = \ker(\pi)$. $\blacksquare$
 
 !!! answer "Answer"
     **a)** $\pi$ is a projection $\iff \pi^2 = \pi \iff (\operatorname{id}_V - \pi)^2 = \operatorname{id}_V - \pi \iff \operatorname{id}_V - \pi$ is a projection.
@@ -246,7 +243,7 @@ Part a is pure algebra: expand $(\operatorname{id} - \pi)^2$ and watch the condi
     **b)** The image and kernel swap:
     $$\operatorname{Im}(\operatorname{id}_V - \pi) = \ker(\pi), \qquad \ker(\operatorname{id}_V - \pi) = \operatorname{Im}(\pi).$$
 
-    **Intuition.** A projection splits the space as $V = \operatorname{Im}(\pi) \oplus \ker(\pi)$, keeping the first part and killing the second. The complementary projection $\operatorname{id}_V - \pi$ does the exact opposite: it keeps what $\pi$ kills and kills what $\pi$ keeps, so their images and kernels trade places.
+    **Intuition.** A projection splits the space as $V = \operatorname{Im}(\pi) \oplus \ker(\pi)$, acting as the identity on the first part and as zero on the second. The complementary map $\operatorname{id}_V - \pi$ keeps the residual instead, so it kills exactly what $\pi$ keeps and keeps exactly what $\pi$ kills. Their images and kernels therefore trade places.
 
 ---
 
@@ -293,6 +290,54 @@ It is cleanest to orthogonalise first (get $u_1, u_2$), then normalise at the ve
     Both forms are correct; the factored form is usually cleaner to read.
 
 Reference: [Gram-Schmidt Process (Professor Dave Explains)](https://www.youtube.com/watch?v=zHbfZWZJTGc)
+
+---
+
+## 3.9 · Cauchy-Schwarz with cleverly chosen vectors
+
+Let $n \in \mathbb{N}$ and let $x_1, \dots, x_n > 0$ be positive reals with $x_1 + \dots + x_n = 1$. Use the Cauchy-Schwarz inequality to show that
+
+**(a)** $\displaystyle\sum_{i=1}^n x_i^2 \geq \frac{1}{n}$, &nbsp;&nbsp; **(b)** $\displaystyle\sum_{i=1}^n \frac{1}{x_i} \geq n^2$.
+
+!!! theory "Topics & Definitions"
+    - **Cauchy-Schwarz** — for any vectors $u, v$ in an inner product space, $\langle u, v\rangle^2 \leq \lVert u\rVert^2 \cdot \lVert v\rVert^2$, with equality exactly when $u$ and $v$ are linearly dependent.
+    - **The trick here** — the question is about *sums of numbers*, not vectors, so none are given. The whole skill is **inventing** vectors $u$ and $v$ whose Cauchy-Schwarz inequality happens to say the thing you want.
+    - **How to find them** — Cauchy-Schwarz has three slots ($\langle u,v\rangle^2$, $\lVert u\rVert^2$, $\lVert v\rVert^2$). You have two ingredients to place: the **target** (what you are bounding) and the **constraint** ($\sum x_i = 1$). Decide which slot each goes in, then solve for the vector components.
+    - **Where the square roots come from** — a squared norm squares every component before adding, so to get $\lVert v\rVert^2 = \sum \tfrac{1}{x_i}$ you solve $(v_i)^2 = \tfrac1{x_i}$, giving $v_i = \tfrac{1}{\sqrt{x_i}}$. The root is just what survives the squaring, and $x_i > 0$ is what makes it well-defined.
+
+Both parts follow the same recipe: put the target in a norm slot, choosing the components so squaring reproduces it, place the constraint wherever it lands, then let the last slot fall out. Part a needs no roots because its target is already a sum of squares; part b needs them.
+
+!!! steps "Part a, choose the vectors"
+    The target $\sum x_i^2$ is already a sum of squares, so it drops straight into a norm slot with no roots:
+    $$u = \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix} \;\Longrightarrow\; \lVert u\rVert^2 = \sum_{i=1}^n x_i^2 \quad\text{(the target)}.$$
+    The constraint $\sum x_i = 1$ is a plain sum, so it belongs in the dot product. Solving $u \cdot v = \sum x_i$ term by term forces $v_i = 1$:
+    $$v = \begin{pmatrix}1\\\vdots\\1\end{pmatrix} \;\Longrightarrow\; u \cdot v = \sum_{i=1}^n x_i = 1, \qquad \lVert v\rVert^2 = n.$$
+
+!!! steps "Part a, apply the inequality"
+    $$\underbrace{1}_{(u\cdot v)^2} \;\leq\; \underbrace{\left(\sum_{i=1}^n x_i^2\right)}_{\lVert u\rVert^2} \cdot \underbrace{n}_{\lVert v\rVert^2}.$$
+    Dividing by $n$ (positive, so the direction is preserved):
+    $$\sum_{i=1}^n x_i^2 \geq \frac{1}{n}. \qquad \blacksquare$$
+
+!!! steps "Part b, choose the vectors"
+    Nothing in Cauchy-Schwarz manufactures reciprocals, so they must be built into a vector from the start. For the **target**, solve $(v_i)^2 = \tfrac{1}{x_i}$:
+    $$v = \begin{pmatrix}\tfrac{1}{\sqrt{x_1}}\\\vdots\\\tfrac{1}{\sqrt{x_n}}\end{pmatrix} \;\Longrightarrow\; \lVert v\rVert^2 = \sum_{i=1}^n \frac{1}{x_i} \quad\text{(the target)}.$$
+    For the **constraint**, solve $(u_i)^2 = x_i$:
+    $$u = \begin{pmatrix}\sqrt{x_1}\\\vdots\\\sqrt{x_n}\end{pmatrix} \;\Longrightarrow\; \lVert u\rVert^2 = \sum_{i=1}^n x_i = 1 \quad\text{(the constraint)}.$$
+
+!!! steps "Part b, apply the inequality"
+    Both vectors are now fixed, and the reciprocal pairing cancels inside the dot product:
+    $$u \cdot v = \sum_{i=1}^n \sqrt{x_i}\cdot\frac{1}{\sqrt{x_i}} = \sum_{i=1}^n 1 = n.$$
+    Substituting into Cauchy-Schwarz:
+    $$\underbrace{n^2}_{(u\cdot v)^2} \;\leq\; \underbrace{1}_{\lVert u\rVert^2} \cdot \underbrace{\left(\sum_{i=1}^n \frac{1}{x_i}\right)}_{\lVert v\rVert^2},$$
+
+    $$\sum_{i=1}^n \frac{1}{x_i} \geq n^2. \qquad \blacksquare$$
+
+!!! answer "Answer"
+    $$\sum_{i=1}^n x_i^2 \geq \frac{1}{n}, \qquad \sum_{i=1}^n \frac{1}{x_i} \geq n^2.$$
+
+    **The pattern.** In both parts: put the *target* in a norm slot (solving for components so squaring produces it), put the *constraint* wherever it fits, and let the remaining slot fall out. Part a needs no square roots because its target is already a sum of squares; part b needs them because neither the target nor the constraint is.
+
+    **Both bounds are tight.** Equality in Cauchy-Schwarz needs $u$ and $v$ parallel, which here means all the $x_i$ are equal, i.e. $x_i = \tfrac1n$. Substituting confirms both bounds are hit exactly there.
 
 ---
 
