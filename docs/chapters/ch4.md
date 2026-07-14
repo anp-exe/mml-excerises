@@ -98,3 +98,65 @@ Before expanding anything, look at the matrix. Find the line with the most zeros
     $$\det(A) = 6.$$
 
     **What made it efficient.** The naive route is $20$ sub-determinants. Here column 2's three zeros cut five minors down to two, $M_2$'s duplicate rows made it zero for free, and only one $4\times4$ ever needed real work. The exercise tests strategy, not arithmetic: scan for zeros and duplicate lines before computing anything, the single highest-leverage move in the whole determinants topic.
+
+---
+
+## 4.3 · Computing eigenspaces
+
+Compute the eigenspaces of
+$$\text{(a)}\quad A := \begin{pmatrix}1&0\\1&1\end{pmatrix}, \qquad \text{(b)}\quad B := \begin{pmatrix}-2&2\\2&1\end{pmatrix}.$$
+
+!!! theory "Topics & Definitions"
+    - **Eigenvalue equation** — $\lambda$ is an eigenvalue of $A$ if $Av = \lambda v$ for some nonzero $v$. Rearranged, $(A - \lambda I)v = 0$, which needs $A - \lambda I$ singular, so $\det(A - \lambda I) = 0$. That is the characteristic polynomial, and its roots are exactly the eigenvalues.
+    - **Workflow** — form $A - \lambda I$ (subtract $\lambda$ down the diagonal), compute its determinant, set it to zero and solve for the eigenvalues, then for each $\lambda$ separately solve $(A - \lambda I)v = 0$ for its eigenspace. Each eigenvalue gets its own system and its own answer; they are never combined.
+    - **Free variables are the point** — when solving $(A - \lambda I)v = 0$ the rows always go redundant (that is exactly why $\lambda$ was chosen), so a row reducing to $0 = 0$ constrains nothing and gets crossed out. The unconstrained variable spans the eigenspace. Careful: $0v_1 + 0v_2 = 0$ says nothing about $v_2$; multiplying by zero destroys the information, so it cannot "see" the variable at all.
+    - **Scaling is free** — $(1,3)$, $(2,6)$, and $(-1,-3)$ all span the same line, so pick the cleanest integer representative.
+    - **Two multiplicities** — the algebraic multiplicity is how many times $\lambda$ is a root; the geometric multiplicity is the dimension of its eigenspace. They need not match, and you have to solve the system to find out.
+
+The recipe is the same for both matrices: build the characteristic polynomial, find its roots, then solve a separate singular system for each root. Part a lands on one repeated eigenvalue; part b on two distinct ones.
+
+!!! steps "Part a, characteristic polynomial"
+    $$A - \lambda I = \begin{pmatrix}1-\lambda & 0\\1 & 1-\lambda\end{pmatrix}.$$
+
+    $$\det(A - \lambda I) = (1-\lambda)(1-\lambda) - (0)(1) = (1-\lambda)^2 = \lambda^2 - 2\lambda + 1.$$
+
+    Setting to zero, $(\lambda - 1)^2 = 0 \Rightarrow \lambda = 1$: a single eigenvalue, but a repeated root, so algebraic multiplicity $2$.
+
+!!! steps "Part a, eigenspace for $\lambda = 1$"
+    Substitute $\lambda = 1$:
+    $$A - I = \begin{pmatrix}0 & 0\\1 & 0\end{pmatrix}.$$
+    Reading $(A - I)v = 0$ row by row: row 1 is $0v_1 + 0v_2 = 0$, no information, discard; row 2 is $v_1 = 0$. So $v_1 = 0$ and $v_2$ is free:
+    $$v = \begin{pmatrix}0\\v_2\end{pmatrix} = v_2\begin{pmatrix}0\\1\end{pmatrix}.$$
+    Check: $A\begin{pmatrix}0\\1\end{pmatrix} = \begin{pmatrix}0\\1\end{pmatrix} = 1\cdot\begin{pmatrix}0\\1\end{pmatrix}$. $\checkmark$
+
+!!! steps "Part b, characteristic polynomial"
+    $$B - \lambda I = \begin{pmatrix}-2-\lambda & 2\\2 & 1-\lambda\end{pmatrix}.$$
+
+    $$\det(B - \lambda I) = (-2-\lambda)(1-\lambda) - (2)(2) = \lambda^2 + \lambda - 6.$$
+
+    Factorising (two numbers multiplying to $-6$ and summing to $+1$, namely $-2$ and $3$):
+    $$\lambda^2 + \lambda - 6 = (\lambda - 2)(\lambda + 3) = 0 \Rightarrow \lambda = 2 \ \text{and}\ \lambda = -3.$$
+    Two distinct eigenvalues, so two separate eigenspaces.
+
+!!! steps "Part b, eigenspace for $\lambda = 2$"
+    $$B - 2I = \begin{pmatrix}-4 & 2\\2 & -1\end{pmatrix}.$$
+    Row 1: $-4v_1 + 2v_2 = 0 \Rightarrow v_2 = 2v_1$. Row 2: $2v_1 - v_2 = 0 \Rightarrow v_2 = 2v_1$ (the same information, as expected). Taking $v_1 = 1$:
+    $$E_2 = \operatorname{span}\left\{\begin{pmatrix}1\\2\end{pmatrix}\right\}.$$
+    Check: $B\begin{pmatrix}1\\2\end{pmatrix} = \begin{pmatrix}2\\4\end{pmatrix} = 2\begin{pmatrix}1\\2\end{pmatrix}$. $\checkmark$
+
+!!! steps "Part b, eigenspace for $\lambda = -3$"
+    $$B + 3I = \begin{pmatrix}1 & 2\\2 & 4\end{pmatrix}.$$
+    Row 1: $v_1 + 2v_2 = 0 \Rightarrow v_1 = -2v_2$. Row 2: $2v_1 + 4v_2 = 0 \Rightarrow v_1 = -2v_2$ (redundant, as expected). Taking $v_2 = 1$:
+    $$E_{-3} = \operatorname{span}\left\{\begin{pmatrix}-2\\1\end{pmatrix}\right\}.$$
+    Check: $B\begin{pmatrix}-2\\1\end{pmatrix} = \begin{pmatrix}6\\-3\end{pmatrix} = -3\begin{pmatrix}-2\\1\end{pmatrix}$. $\checkmark$
+
+!!! answer "Answer"
+    **a)** One eigenvalue $\lambda = 1$, with a one-dimensional eigenspace:
+    $$E_1 = \operatorname{span}\left\{\begin{pmatrix}0\\1\end{pmatrix}\right\}.$$
+
+    **b)** Two eigenvalues, each with a one-dimensional eigenspace:
+    $$E_2 = \operatorname{span}\left\{\begin{pmatrix}1\\2\end{pmatrix}\right\}, \qquad E_{-3} = \operatorname{span}\left\{\begin{pmatrix}-2\\1\end{pmatrix}\right\}.$$
+
+    **Part a is defective.** The eigenvalue $\lambda = 1$ has algebraic multiplicity $2$ but geometric multiplicity $1$: a $2\times2$ matrix yielding only one independent eigenvector direction. Geometrically $A$ is a shear, leaving the $y$-axis fixed but tilting everything else, so only one line survives unchanged. Such a matrix is not diagonalisable.
+
+    **Part b's eigenvectors are orthogonal.** $(1,2)\cdot(-2,1) = -2 + 2 = 0$. This is not luck: $B$ is symmetric, and symmetric matrices always have orthogonal eigenvectors for distinct eigenvalues.
