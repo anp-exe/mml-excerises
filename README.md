@@ -1,6 +1,6 @@
 # MML Exercise Answers
 
-Worked solutions to the end-of-chapter exercises in *Mathematics for Machine Learning* (Deisenroth, Faisal & Ong), published as a static site built with MkDocs and Material. My goal is to do enough reading everyday to complete one exercise. 
+Worked solutions to the end-of-chapter exercises in *Mathematics for Machine Learning* (Deisenroth, Faisal & Ong), published as a static site built with MkDocs and Material. My goal is to do enough reading everyday to complete one exercise, and along the way create something that is useful to other learners.
 
 **Live site:** https://anp-exe.github.io/mml-excerises/
 
