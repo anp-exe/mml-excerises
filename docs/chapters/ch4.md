@@ -379,3 +379,32 @@ $$A = \begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}.$$
     Eigenbasis (columns of $P$, ordered to match $D$):
     $$\left\{\begin{pmatrix}-1\\1\\0\end{pmatrix}, \begin{pmatrix}-1\\0\\1\end{pmatrix}, \begin{pmatrix}1\\1\\1\end{pmatrix}\right\}.$$
     With respect to this basis the transformation is diagonal with entries $0, 0, 3$.
+
+**Part c**
+
+$$A = \begin{pmatrix}5&4&2&1\\0&1&-1&-1\\-1&-1&3&0\\1&1&-1&2\end{pmatrix}.$$
+
+!!! theory "Topics & Definitions"
+    - **Only repeated eigenvalues can break diagonalizability** — an eigenvalue with algebraic multiplicity $1$ always has geometric multiplicity $1$, so it can never mismatch. When the question is just "diagonalizable, and if not why," find the eigenvalues, then check the eigenspace of any repeated one first. If its geometric multiplicity falls short, you can stop and answer immediately.
+    - **The two multiplicities** — algebraic is how many times $\lambda$ is a root (the exponent on its bracket); geometric is the eigenspace dimension (the number of free variables after row-reducing $A - \lambda I$).
+    - **The squeeze** — it is always true that $1 \le \text{geometric} \le \text{algebraic}$. The matrix is diagonalizable exactly when the two are equal for **every** eigenvalue; a single case of geometric $<$ algebraic makes it defective.
+
+!!! steps "Step 1, characteristic polynomial"
+    Expanding $\det(A - \lambda I)$:
+    $$p_A(\lambda) = \lambda^4 - 11\lambda^3 + 42\lambda^2 - 64\lambda + 32 = (\lambda - 4)^2(\lambda - 2)(\lambda - 1).$$
+    Sanity checks: sum of eigenvalues $4 + 4 + 2 + 1 = 11 = \operatorname{tr}(A)$ $\checkmark$, product $4\cdot4\cdot2\cdot1 = 32 = \det(A)$ $\checkmark$. Eigenvalues: $\lambda = 4$ (algebraic multiplicity $2$), $\lambda = 2$, $\lambda = 1$.
+
+!!! note "Factorising the quartic"
+    Test the rational-root candidates (factors of $32$). $\lambda = 1$ and $\lambda = 2$ are roots; dividing them out leaves $\lambda^2 - 8\lambda + 16 = (\lambda - 4)^2$, the repeated eigenvalue.
+
+!!! steps "Step 2, check the repeated eigenvalue $\lambda = 4$"
+    Since $\lambda = 4$ is the only repeated eigenvalue, it is the only one that can break diagonalizability. Row-reduce $A - 4I$:
+    $$A - 4I \;\xrightarrow{\text{RREF}}\; \begin{pmatrix}1&0&0&-1\\0&1&0&0\\0&0&1&1\\0&0&0&0\end{pmatrix}.$$
+    Pivots sit in columns 1, 2, 3, so only column 4 is free, a single free variable. Reading the rows: $v_1 = v_4$, $v_2 = 0$, $v_3 = -v_4$. Taking $v_4 = 1$:
+    $$E_4 = \operatorname{span}\left\{\begin{pmatrix}1\\0\\-1\\1\end{pmatrix}\right\}.$$
+    Geometric multiplicity $1$.
+
+!!! answer "Answer"
+    **Not diagonalizable.** The eigenvalue $\lambda = 4$ has algebraic multiplicity $2$ but geometric multiplicity $1$. Since algebraic exceeds geometric, the matrix has only $3$ independent eigenvectors, one short of the $4$ needed to form a basis for $\mathbb{R}^4$, so it is defective.
+
+    Because the answer is "no," the eigenspaces of $\lambda = 2$ and $\lambda = 1$ are never needed: checking the repeated eigenvalue alone settles it.
