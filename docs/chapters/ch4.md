@@ -408,3 +408,40 @@ $$A = \begin{pmatrix}5&4&2&1\\0&1&-1&-1\\-1&-1&3&0\\1&1&-1&2\end{pmatrix}.$$
     **Not diagonalizable.** The eigenvalue $\lambda = 4$ has algebraic multiplicity $2$ but geometric multiplicity $1$. Since algebraic exceeds geometric, the matrix has only $3$ independent eigenvectors, one short of the $4$ needed to form a basis for $\mathbb{R}^4$, so it is defective.
 
     Because the answer is "no," the eigenspaces of $\lambda = 2$ and $\lambda = 1$ are never needed: checking the repeated eigenvalue alone settles it.
+
+**Part d**
+
+$$A = \begin{pmatrix}5&-6&-6\\-1&4&2\\3&-6&-4\end{pmatrix}.$$
+
+!!! theory "Topics & Definitions"
+    - **The "yes" case wants two extra things** — when a matrix is diagonalizable, give the diagonal form $D$ and the basis it is diagonal with respect to.
+    - **The diagonal form $D$** — you do not compute this, you write it down: the eigenvalues along the diagonal (each repeated to its multiplicity), zeros elsewhere.
+    - **The basis** — the eigenvectors, used as the columns of the change-of-basis matrix $P$ in $A = PDP^{-1}$. $D$'s diagonal and the basis are a matched pair: the eigenvalue in position $k$ must line up with the eigenvector in position $k$. Any order works as long as the two stay in sync.
+    - **Contrast with part c** — both c and d have a repeated eigenvalue, but c's was defective (geometric $<$ algebraic) so c is not diagonalizable, whereas here the repeated eigenvalue delivers a full eigenspace so d is. You cannot tell which case you are in without computing that eigenspace.
+
+!!! steps "Step 1, characteristic polynomial"
+    Expanding $\det(A - \lambda I)$:
+    $$p_A(\lambda) = -\lambda^3 + 5\lambda^2 - 8\lambda + 4 = -(\lambda - 2)^2(\lambda - 1).$$
+    Sanity checks: sum of eigenvalues $2 + 2 + 1 = 5 = \operatorname{tr}(A)$ $\checkmark$, product $2\cdot2\cdot1 = 4 = \det(A)$ $\checkmark$. Eigenvalues: $\lambda = 2$ (algebraic multiplicity $2$) and $\lambda = 1$.
+
+!!! steps "Step 2, eigenspace for $\lambda = 2$"
+    Row-reduce $A - 2I$:
+    $$A - 2I \;\xrightarrow{\text{RREF}}\; \begin{pmatrix}1&-2&-2\\0&0&0\\0&0&0\end{pmatrix}.$$
+    Only column 1 has a pivot, so columns 2 and 3 are free, two free variables. From $v_1 = 2v_2 + 2v_3$, setting each free variable to $1$ in turn:
+    $$E_2 = \operatorname{span}\left\{\begin{pmatrix}2\\1\\0\end{pmatrix}, \begin{pmatrix}2\\0\\1\end{pmatrix}\right\}.$$
+    Geometric multiplicity $2$, matching the algebraic multiplicity, so this eigenvalue does not break diagonalizability.
+
+!!! steps "Step 3, eigenspace for $\lambda = 1$"
+    Row-reduce $A - I$; one free variable, scaled to clear the fraction:
+    $$E_1 = \operatorname{span}\left\{\begin{pmatrix}3\\-1\\3\end{pmatrix}\right\}.$$
+    Check: $A(3,-1,3)^\top = (3,-1,3)^\top = 1\cdot(3,-1,3)^\top$. $\checkmark$
+
+!!! answer "Answer"
+    **Diagonalizable.** Both eigenvalues have geometric multiplicity equal to algebraic multiplicity ($\lambda = 2$: $2$ and $2$; $\lambda = 1$: $1$ and $1$), giving $3$ independent eigenvectors for a $3\times3$.
+
+    Diagonal form:
+    $$D = \begin{pmatrix}2&0&0\\0&2&0\\0&0&1\end{pmatrix}.$$
+
+    Basis (columns ordered to match $D$):
+    $$\left\{\begin{pmatrix}2\\1\\0\end{pmatrix}, \begin{pmatrix}2\\0\\1\end{pmatrix}, \begin{pmatrix}3\\-1\\3\end{pmatrix}\right\}.$$
+    With respect to this basis the transformation is diagonal with entries $2, 2, 1$.
