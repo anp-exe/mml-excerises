@@ -498,3 +498,49 @@ $$A = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}.$$
     $$V^\top = \begin{pmatrix}\tfrac{1}{\sqrt2} & \tfrac{1}{\sqrt2} & 0\\[4pt] \tfrac{1}{3\sqrt2} & -\tfrac{1}{3\sqrt2} & \tfrac{4}{3\sqrt2}\\[4pt] -\tfrac{2}{3} & \tfrac{2}{3} & \tfrac{1}{3}\end{pmatrix}.$$
 
     The singular values $5$ and $3$ are the amounts $A$ stretches along its two principal directions; the third $V$ direction is collapsed to zero.
+
+---
+
+## 4.9 · SVD of a square matrix
+
+Find the singular value decomposition of
+$$A = \begin{pmatrix}2&2\\-1&1\end{pmatrix}.$$
+
+!!! theory "Topics & Definitions"
+    - **Square still needs the transpose** — even though $A$ is square, SVD uses $A^\top A$ (or $AA^\top$): the singular values are $\sqrt{\text{eigenvalues of } A^\top A}$, never the eigenvalues of $A$ itself.
+    - **The matched-pair rule** — which shortcut you use depends entirely on which matrix you started from. From $A^\top A$ you get $V$ first, then $U$ via $u_i = \tfrac{1}{\sigma_i}A v_i$ (**plain $A$**). From $AA^\top$ you get $U$ first, then $V$ via $v_i = \tfrac{1}{\sigma_i}A^\top u_i$ (**transpose $A^\top$**).
+    - **The transpose follows the direction of travel** — plain $A$ moves you toward $U$; transpose $A^\top$ moves you toward $V$. Memory hook: multiply what you *have* to produce what you *want*. Have $V$, want $U$: use $A$. Have $U$, want $V$: use $A^\top$. Exercise 4.8 started from $AA^\top$ and used $A^\top$; this one starts from $A^\top A$, so it uses plain $A$.
+
+!!! note "Two easy slips"
+    Normalise every vector (divide by its length), since SVD needs unit vectors. And when combining the singular-value fraction with the vector's own normalising fraction, simplify carefully: $\tfrac{1}{2\sqrt2}\cdot\tfrac{1}{\sqrt2} = \tfrac14$ because $\sqrt2\cdot\sqrt2 = 2$. Note $2\sqrt2 = \sqrt8$, so $\tfrac{1}{2\sqrt2}$ and $\tfrac{1}{\sqrt8}$ are the same number.
+
+Start from $A^\top A$ (its eigenvectors are the $V$ columns), read off the singular values, then travel to $U$ with plain $A$.
+
+!!! steps "Step 1, singular values"
+    $$A^\top A = \begin{pmatrix}5&3\\3&5\end{pmatrix}.$$
+    Using $\lambda^2 - \operatorname{tr}\lambda + \det$, with trace $10$ and determinant $25 - 9 = 16$:
+    $$\lambda^2 - 10\lambda + 16 = (\lambda - 8)(\lambda - 2).$$
+    Eigenvalues $8$ and $2$, so $\sigma_1 = \sqrt8 = 2\sqrt2$ and $\sigma_2 = \sqrt2$:
+    $$\Sigma = \begin{pmatrix}2\sqrt2 & 0\\0 & \sqrt2\end{pmatrix}.$$
+    (Square $A$ gives a square $\Sigma$, no leftover zero column.)
+
+!!! steps "Step 2, $V$ from the $A^\top A$ eigenvectors"
+    Since we started from $A^\top A$, its eigenvectors are the $V$ columns.
+    $\lambda = 8$: $(A^\top A - 8I)v = 0$ gives $v_1 = v_2$, so $(1,1)$ normalised is $v_1 = \tfrac{1}{\sqrt2}(1, 1)$.
+    $\lambda = 2$: gives $v_1 = -v_2$, so $(-1,1)$ normalised is $v_2 = \tfrac{1}{\sqrt2}(-1, 1)$.
+
+!!! steps "Step 3, $U$ from the shortcut (plain $A$)"
+    We have $V$ and want $U$, so use $u_i = \tfrac{1}{\sigma_i}A v_i$ with plain $A$ (no transpose):
+    $$u_1 = \tfrac{1}{2\sqrt2}\,A v_1 = \tfrac{1}{2\sqrt2}\cdot\tfrac{1}{\sqrt2}(4, 0) = \tfrac14(4,0) = (1, 0).$$
+
+    $$u_2 = \tfrac{1}{\sqrt2}\,A v_2 = \tfrac{1}{\sqrt2}\cdot\tfrac{1}{\sqrt2}(0, 2) = \tfrac12(0,2) = (0, 1).$$
+
+    So $U$ is the identity:
+    $$U = \begin{pmatrix}1&0\\0&1\end{pmatrix}.$$
+
+!!! answer "Answer"
+    $$A = U\Sigma V^\top,$$
+
+    $$U = \begin{pmatrix}1&0\\0&1\end{pmatrix}, \qquad \Sigma = \begin{pmatrix}2\sqrt2 & 0\\0 & \sqrt2\end{pmatrix}, \qquad V^\top = \begin{pmatrix}\tfrac{1}{\sqrt2} & \tfrac{1}{\sqrt2}\\[4pt] -\tfrac{1}{\sqrt2} & \tfrac{1}{\sqrt2}\end{pmatrix}.$$
+
+    The singular values $2\sqrt2$ and $\sqrt2$ are the stretch amounts. Here $U$ came out as the identity, so all the rotation lives in $V^\top$. The lesson worth keeping: the choice between $A$ and $A^\top$ in the shortcut is dictated by which matrix you decomposed first, $A^\top A$ gives $V$ (then plain $A$ for $U$), $AA^\top$ gives $U$ (then $A^\top$ for $V$).
