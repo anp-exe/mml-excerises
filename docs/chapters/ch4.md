@@ -553,3 +553,36 @@ Start from $A^\top A$ (its eigenvectors are the $V$ columns), read off the singu
     $$U = \begin{pmatrix}1&0\\0&1\end{pmatrix}, \qquad \Sigma = \begin{pmatrix}2\sqrt2 & 0\\0 & \sqrt2\end{pmatrix}, \qquad V^\top = \begin{pmatrix}\tfrac{1}{\sqrt2} & \tfrac{1}{\sqrt2}\\[4pt] -\tfrac{1}{\sqrt2} & \tfrac{1}{\sqrt2}\end{pmatrix}.$$
 
     The singular values $2\sqrt2$ and $\sqrt2$ are the stretch amounts. Here $U$ came out as the identity, so all the rotation lives in $V^\top$. The lesson worth keeping: the choice between $A$ and $A^\top$ in the shortcut is dictated by which matrix you decomposed first, $A^\top A$ gives $V$ (then plain $A$ for $U$), $AA^\top$ gives $U$ (then $A^\top$ for $V$).
+
+---
+
+## 4.10 · Rank-1 approximation
+
+Find the rank-1 approximation of
+$$A = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}.$$
+
+!!! theory "Topics & Definitions"
+    - **Rank-1 approximation** — keep only the single strongest layer of the SVD: $\hat A(1) = \sigma_1 u_1 v_1^\top$, using the largest singular value $\sigma_1$, the first left-singular vector $u_1$, and the first right-singular vector $v_1$.
+    - **Best possible (Eckart–Young)** — this is the *best* rank-1 approximation of $A$, and the approximation error is exactly $\sigma_2$.
+    - **Reuse the SVD** — this reuses the SVD of $A$ from Exercise 4.8, so no new decomposition is needed, just extract the "first" pieces.
+    - **The outer product** — $u_1 v_1^\top$ is a column ($m\times1$) times a row ($1\times n$), producing a full $m\times n$ matrix whose $(j,k)$ entry is $(u_1)_j (v_1)_k$.
+
+!!! note "Row vs column when reading $V^\top$"
+    $v_1$ is the first **column of $V$**, which is the first **row of $V^\top$**. Transposing swaps rows and columns, so when reading from $V^\top$ take its **rows** to get the $v_i$ vectors, not its columns. Reading down a column of $V^\top$ by mistake mixes pieces of $v_1, v_2, v_3$ together and gives wrong numbers.
+
+!!! steps "Step 1, pull out the first pieces"
+    From the SVD of $A$ (Exercise 4.8):
+    $$\sigma_1 = 5, \qquad u_1 = \tfrac{1}{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix}, \qquad v_1 = \tfrac{1}{\sqrt2}\begin{pmatrix}1\\1\\0\end{pmatrix}.$$
+    $\sigma_1$ is the largest singular value, $u_1$ is the first column of $U$, and $v_1$ is the first row of $V^\top$. Note the third entry of $v_1$ is $0$.
+
+!!! steps "Step 2, outer product $u_1 v_1^\top$"
+    Multiply the column by the row (each entry scaled by $\tfrac{1}{\sqrt2}\cdot\tfrac{1}{\sqrt2} = \tfrac12$):
+    $$u_1 v_1^\top = \tfrac12\begin{pmatrix}1\\1\end{pmatrix}\begin{pmatrix}1&1&0\end{pmatrix} = \tfrac12\begin{pmatrix}1&1&0\\1&1&0\end{pmatrix} = \begin{pmatrix}0.5&0.5&0\\0.5&0.5&0\end{pmatrix}.$$
+
+!!! steps "Step 3, scale by $\sigma_1$"
+    $$\hat A(1) = \sigma_1\, u_1 v_1^\top = 5\begin{pmatrix}0.5&0.5&0\\0.5&0.5&0\end{pmatrix}.$$
+
+!!! answer "Answer"
+    $$\hat A(1) = \begin{pmatrix}2.5&2.5&0\\2.5&2.5&0\end{pmatrix}.$$
+
+    The two rows are identical because $u_1 = \tfrac{1}{\sqrt2}(1,1)$ weights both output directions equally, and the third column is zero because $v_1$ has a zero third entry. Compared with the original $A = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}$, this rank-1 layer captures the dominant shared structure; the finer detail (the differences between entries and the $-2$) lives in the discarded $\sigma_2$ layer, and the error it costs is exactly $\sigma_2 = 3$.
