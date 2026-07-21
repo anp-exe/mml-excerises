@@ -586,3 +586,65 @@ $$A = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}.$$
     $$\hat A(1) = \begin{pmatrix}2.5&2.5&0\\2.5&2.5&0\end{pmatrix}.$$
 
     The two rows are identical because $u_1 = \tfrac{1}{\sqrt2}(1,1)$ weights both output directions equally, and the third column is zero because $v_1$ has a zero third entry. Compared with the original $A = \begin{pmatrix}3&2&2\\2&3&-2\end{pmatrix}$, this rank-1 layer captures the dominant shared structure; the finer detail (the differences between entries and the $-2$) lives in the discarded $\sigma_2$ layer, and the error it costs is exactly $\sigma_2 = 3$.
+
+---
+
+## 4.11 · $A^\top A$ and $AA^\top$ share nonzero eigenvalues
+
+Show that for any $A \in \mathbb{R}^{m\times n}$, the matrices $A^\top A$ and $AA^\top$ have the same nonzero eigenvalues.
+
+!!! theory "Topics & Definitions"
+    - **Why it matters** — this justifies the SVD shortcut: since $A^\top A$ and $AA^\top$ share nonzero eigenvalues, the singular values $\sqrt{\lambda}$ are the same whichever product you use, so you can diagonalize the smaller one.
+    - **The key idea** — if $x$ is an eigenvector of $A^\top A$, then $Ax$ is an eigenvector of $AA^\top$ with the same eigenvalue. Multiplying by $A$ transfers the eigenvalue between the products; $A$ itself is only the bridge.
+    - **Why "nonzero" matters** — the argument needs $Ax \neq 0$ to give a genuine eigenvector, which is only guaranteed when $\lambda \neq 0$.
+
+!!! steps "Proof"
+    Let $\lambda \neq 0$ be an eigenvalue of $A^\top A$ with eigenvector $x \neq 0$:
+    $$A^\top A\, x = \lambda x.$$
+    Multiply on the left by $A$:
+    $$A A^\top A\, x = \lambda A x.$$
+    Regroup using associativity:
+    $$(AA^\top)(Ax) = \lambda (Ax).$$
+    This has the form of an eigenvalue equation for $AA^\top$, with eigenvector $Ax$ and eigenvalue $\lambda$.
+
+    **Check $Ax \neq 0$:** if $Ax = 0$, then $A^\top A\, x = A^\top(Ax) = 0 = \lambda x$, forcing $\lambda = 0$ (since $x \neq 0$), contradicting $\lambda \neq 0$. So $Ax$ is a genuine eigenvector. The reverse direction is identical, swapping $A$ and $A^\top$ (start from $AA^\top y = \lambda y$ and multiply by $A^\top$).
+
+!!! answer "Conclusion"
+    Every nonzero eigenvalue of $A^\top A$ is a nonzero eigenvalue of $AA^\top$, and vice versa, so the two matrices share exactly the same nonzero eigenvalues. $\blacksquare$
+
+    (They may differ in their *zero* eigenvalues: the larger matrix simply has extra zeros to fill its extra dimensions, which is why singular values come only from the nonzero eigenvalues.)
+
+---
+
+## 4.12 · The largest singular value is the maximum stretch
+
+Show that for $x \neq 0$,
+$$\max_{x} \frac{\lVert Ax\rVert_2}{\lVert x\rVert_2} = \sigma_1,$$
+where $\sigma_1$ is the largest singular value of $A \in \mathbb{R}^{m\times n}$.
+
+!!! theory "Topics & Definitions"
+    - **The stretch factor** — $\lVert Ax\rVert / \lVert x\rVert$ measures how much $A$ lengthens $x$. This theorem says the most $A$ can stretch any vector is exactly $\sigma_1$, giving the largest singular value a concrete meaning: the matrix's maximum amplification.
+    - **Orthogonal matrices preserve length** — $\lVert Uz\rVert = \lVert z\rVert$ and $\lVert Vz\rVert = \lVert z\rVert$, which lets you strip $U$ and $V$ from $A = U\Sigma V^\top$ and reduce the problem to the diagonal $\Sigma$.
+    - **$\sigma_1$ is the largest** — so every $\sigma_i^2 \le \sigma_1^2$, which bounds the sum.
+    - **Proving a maximum** — needs two parts: an upper bound (nothing exceeds $\sigma_1$) and attainment (some vector reaches it).
+
+!!! steps "Step 1, reduce to the diagonal matrix"
+    Write $A = U\Sigma V^\top$. For $x \neq 0$, set $y = V^\top x$; since $V$ is orthogonal, $\lVert y\rVert = \lVert x\rVert$. Using that $U$ preserves length:
+    $$\lVert Ax\rVert = \lVert U\Sigma V^\top x\rVert = \lVert \Sigma V^\top x\rVert = \lVert \Sigma y\rVert.$$
+    So $\dfrac{\lVert Ax\rVert}{\lVert x\rVert} = \dfrac{\lVert \Sigma y\rVert}{\lVert y\rVert}$.
+
+!!! steps "Step 2, upper bound"
+    Since $\Sigma$ is diagonal, $\Sigma y = (\sigma_1 y_1, \sigma_2 y_2, \dots)$, so
+    $$\lVert \Sigma y\rVert^2 = \sum_i \sigma_i^2 y_i^2 \le \sigma_1^2 \sum_i y_i^2 = \sigma_1^2 \lVert y\rVert^2$$
+    (each $\sigma_i^2$ replaced by the larger $\sigma_1^2$). Taking square roots:
+    $$\frac{\lVert Ax\rVert}{\lVert x\rVert} \le \sigma_1 \quad\text{for all } x.$$
+
+!!! steps "Step 3, the bound is attained"
+    Choose $x = v_1$, the first right-singular vector. Then $y = V^\top v_1 = e_1 = (1,0,\dots,0)$, so
+    $$\lVert \Sigma y\rVert = \sigma_1, \qquad \lVert y\rVert = 1, \qquad \frac{\lVert Av_1\rVert}{\lVert v_1\rVert} = \sigma_1.$$
+    Some vector reaches $\sigma_1$, so the bound is tight.
+
+!!! answer "Conclusion"
+    The ratio is bounded above by $\sigma_1$ for every $x$ and equals $\sigma_1$ when $x = v_1$, so
+    $$\max_{x \neq 0} \frac{\lVert Ax\rVert_2}{\lVert x\rVert_2} = \sigma_1. \qquad \blacksquare$$
+    The maximum stretch of $A$ is its largest singular value, achieved along the first right-singular vector $v_1$.
