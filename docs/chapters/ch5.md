@@ -6,6 +6,8 @@ End-of-chapter exercises. Each has a definitions box, explanation, worked steps,
 
 ## 5.1 · Differentiating a product with nested functions
 
+*Calculus I · differentiation rules*
+
 Compute the derivative $f'(x)$ for
 $$f(x) = \log(x^4)\sin(x^3).$$
 
