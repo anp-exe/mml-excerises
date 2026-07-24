@@ -209,3 +209,41 @@ What are the dimensions of $\partial f_i / \partial \boldsymbol{x}$?
     $$\frac{\partial f_1}{\partial \boldsymbol{x}} \in \mathbb{R}^{1\times 2}, \qquad \frac{\partial f_2}{\partial \boldsymbol{x}} \in \mathbb{R}^{1\times n}, \qquad \frac{\partial f_3}{\partial x} \in \mathbb{R}^{1\times 1}.$$
 
     All three are row vectors, since every function here maps into $\mathbb{R}$, a useful structural check before computing anything.
+
+**Part b**
+
+Compute the Jacobians.
+
+!!! theory "Topics & Definitions"
+    - **What a Jacobian is** — all the partial derivatives of a function collected into a matrix, $\left(\tfrac{\partial f}{\partial \boldsymbol{x}}\right)_{ij} = \tfrac{\partial f_i}{\partial x_j}$. Rows are output components, columns are input variables, so entry $(i,j)$ answers "how does output $i$ respond to input $j$?".
+    - **Why it exists** — for a single-variable function the derivative is one number (the slope); for several variables you need the rate of change in *every* input direction, and the Jacobian packages them all into one object so it acts as "the derivative" of a vector-valued function.
+    - **Scalar-valued collapses to a row** — all three functions here are scalar-valued, so each Jacobian is $\tfrac{\partial f}{\partial \boldsymbol{x}} = \begin{pmatrix}\tfrac{\partial f}{\partial x_1} & \cdots & \tfrac{\partial f}{\partial x_n}\end{pmatrix}$. Once the partials are computed, arranging them in a row *is* the Jacobian.
+
+!!! note "Dot products expand nicely"
+    Writing $\boldsymbol{x}^\top\boldsymbol{y} = x_1y_1 + x_2y_2 + \dots + x_ny_n$ makes the differentiation transparent: differentiating with respect to $x_i$, every term without $x_i$ is constant and vanishes, leaving $y_i$.
+
+!!! steps "Jacobian of $f_1$"
+    Two partial derivatives, one per input variable, each holding the other constant:
+    $$\frac{\partial f_1}{\partial x_1} = \cos(x_1)\cos(x_2), \qquad \frac{\partial f_1}{\partial x_2} = -\sin(x_1)\sin(x_2).$$
+    Arranged as a row:
+    $$\frac{\partial f_1}{\partial \boldsymbol{x}} = \begin{pmatrix}\cos(x_1)\cos(x_2) & -\sin(x_1)\sin(x_2)\end{pmatrix}.$$
+    This is $1\times2$, matching part a.
+
+!!! steps "Jacobian of $f_2$"
+    Expand the dot product:
+    $$\boldsymbol{x}^\top\boldsymbol{y} = x_1y_1 + x_2y_2 + \dots + x_ny_n.$$
+    Differentiating with respect to $x_1$, the terms $x_2y_2, \dots, x_ny_n$ contain no $x_1$ and vanish; the surviving $x_1y_1$ has $y_1$ as a constant multiplier, giving $y_1$. The same for each $x_i$ gives $y_i$. Collecting all $n$ partials:
+    $$\frac{\partial f_2}{\partial \boldsymbol{x}} = \begin{pmatrix}y_1 & y_2 & \cdots & y_n\end{pmatrix} = \boldsymbol{y}^\top.$$
+    This is $1\times n$, matching part a.
+
+!!! steps "Jacobian of $f_3$"
+    Since $x \in \mathbb{R}$ is a scalar, $xx^\top = x^2$, so by the power rule
+    $$\frac{\partial f_3}{\partial x} = 2x.$$
+    This is $1\times1$, matching part a.
+
+!!! answer "Answer"
+    $$\frac{\partial f_1}{\partial \boldsymbol{x}} = \begin{pmatrix}\cos(x_1)\cos(x_2) & -\sin(x_1)\sin(x_2)\end{pmatrix},$$
+
+    $$\frac{\partial f_2}{\partial \boldsymbol{x}} = \boldsymbol{y}^\top, \qquad \frac{\partial f_3}{\partial x} = 2x.$$
+
+    Each result has the dimension predicted in part a, a useful structural check. All three are row vectors because all three functions map into $\mathbb{R}$.
